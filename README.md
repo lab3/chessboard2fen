@@ -93,6 +93,26 @@ For a live analysis of the current chessboard place the stockfish binaries of yo
 ```sh
 python3 detectionScript.py
 ```
+
+### Run as an API service
+
+Start a FastAPI server that accepts chessboard images and returns the
+corresponding FEN string:
+
+```sh
+uvicorn service:app --host 0.0.0.0 --port 8000
+```
+
+Then send an image (JPEG/PNG, etc.) to the `/fen` endpoint:
+
+```sh
+curl -X POST \
+  -F "file=@/path/to/your/chessboard.jpg" \
+  http://localhost:8000/fen
+```
+
+The response contains the detected FEN string and—if the move is legal—the
+latest engine evaluation and suggested moves.
 <!-- LICENSE -->
 ## License
 
